@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mot_sudoku_pack>
+  <classic_sudoku>
+    <game_pack>300</game_pack>
+    <game_number>0</game_number>
+    <game_level>0</game_level>
+    <game_name>Brain Age Blank Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+  <classic_sudoku>
+    <game_pack>301</game_pack>
+    <game_number>0</game_number>
+    <game_level>1</game_level>
+    <game_name>Brain Age Basic Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+  <classic_sudoku>
+    <game_pack>302</game_pack>
+    <game_number>0</game_number>
+    <game_level>2</game_level>
+    <game_name>Brain Age Intermediate Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+  <classic_sudoku>
+    <game_pack>303</game_pack>
+    <game_number>0</game_number>
+    <game_level>3</game_level>
+    <game_name>Brain Age Advanced Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+  <classic_sudoku>
+    <game_pack>304</game_pack>
+    <game_number>0</game_number>
+    <game_level>1</game_level>
+    <game_name>Brain Age 2 Basic Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+  <classic_sudoku>
+    <game_pack>305</game_pack>
+    <game_number>0</game_number>
+    <game_level>2</game_level>
+    <game_name>Brain Age 2 Intermediate Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+  <classic_sudoku>
+    <game_pack>306</game_pack>
+    <game_number>0</game_number>
+    <game_level>3</game_level>
+    <game_name>Brain Age 2 Advanced Puzzle #00</game_name>
+    <creator_name>Nintendo, Ported by Tiger21820</creator_name>
+    <puzzle_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</puzzle_line>
+    <solution_line>[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]</solution_line>
+  </classic_sudoku>
+</mot_sudoku_pack>
