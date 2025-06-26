@@ -1,7 +1,7 @@
 {#
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 #}
@@ -37,8 +37,9 @@
 		motSudoku.startNew = "{{ lang('MOT_SUDOKU_BACK_TO_START')|e('js') }}";
 		motSudoku.digitNoBuy = {{ MOT_SUDOKU_DIGIT_NO_BUY }};
 
-		motSudoku.notesTitle = "{{ lang('MOT_SUDOKU_NOTES_TITLE')|e('js') }}";
+		motSudoku.notesTitle = "{{ lang('MOT_SUDOKU_NOTE_TITLE')|e('js') }}";
 		motSudoku.notesQuit = "{{ lang('MOT_SUDOKU_NOTES_QUIT')|e('js') }}";
+		motSudoku.notesPenalty = "{{ lang('MOT_SUDOKU_QUIT_PENALTY', MOT_SUDOKU_ABORT_COST)|e('js') }}";
 
 		motSudoku.confirmQuitMsg = "{{ _self.confirm()|e('js') }}";
 

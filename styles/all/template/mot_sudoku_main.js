@@ -1,7 +1,7 @@
 /**
 *
-* @package MoT Sudoku v0.11.1
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -428,7 +428,7 @@ $("#mask_helper_button_c, #mask_helper_button_s, #mask_helper_button_n").on("cli
 });
 
 /*
-* Quit the game in case the player is stuck
+* Abort the game in case the player is stuck
 *
 */
 $("#game_quit_button_c, #game_quit_button_s, #game_quit_button_n").on("click", function() {
@@ -443,6 +443,7 @@ $("#game_quit_button_c, #game_quit_button_s, #game_quit_button_n").on("click", f
 					{
 						entry:		motSudoku.gameEntryId,
 						user_id:	motSudoku.userId,
+						type:		type,
 					},
 					function(result) {
 						// First we check if the player is still logged in and if he is not we reload the page and thus enforce a new login
@@ -453,7 +454,19 @@ $("#game_quit_button_c, #game_quit_button_s, #game_quit_button_n").on("click", f
 						// Now check whether we have got a successful response
 						if (result['success']) {
 							// Game has been deleted from the SUDOKU_GAMES_TABLE, inform the player
-							phpbb.alert(motSudoku.notesTitle, motSudoku.notesQuit);
+							let message = '';
+
+							// If there is a penalty, inform the player
+							if (result['points'] > 0) {
+								message = motSudoku.notesPenalty;
+							}
+
+							// If UP is used, inform the player that he will be lose UP points
+							if (result['up_points'] != 0) {
+								message = message + motSudoku.upPoints + result['up_points'];
+							}
+							message = message == '' ? motSudoku.notesQuit : message + "<br><br>" + motSudoku.notesQuit;
+							phpbb.alert(motSudoku.notesTitle, message);
 							phpbb.loadingIndicator();
 
 							// and now load a new game

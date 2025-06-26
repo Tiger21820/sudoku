@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.3
+* @package MoT Sudoku v0.12.0
 * @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -57,7 +57,7 @@ class mot_sudoku_functions
 	* Function to fill the monthly and yearly fame tables from the fame table
 	*
 	*/
-	public function check_month_year()
+	public function check_month_year() : void
 	{
 		// Get the current date
 		$date_arr = getdate();
@@ -138,7 +138,7 @@ class mot_sudoku_functions
 	* Check if a new rewards period has started and look who ist to get what reward
 	*
 	*/
-	public function check_rewards()
+	public function check_rewards() : void
 	{
 		$this->admin_arr = [];
 		$this->types_lang_arr = [
@@ -381,12 +381,12 @@ class mot_sudoku_functions
 	/*
 	* Calculate the UP points for every Sudoku type for highest total points, most solved puzzle and highest average points earned
 	*
-	* @params	array		$players	an array holding all players who have earned points during this period
-	*		string		$type		the Sudoku type we handle here e.g. 'c' for classic
-	*		integer	$period	the period we calculate, e.g. monthly = 2
-	*		array		$admin	an array holding the information about the admin we need for the PM
+	* @params	$players	an array holding all players who have earned points during this period
+	*		$type		the Sudoku type we handle here e.g. 'c' for classic
+	*		$period	the period we calculate, e.g. monthly = 2
+	*		$admin	an array holding the information about the admin we need for the PM
 	*/
-	private function get_points($players, $type, $period, $admin)
+	private function get_points(array $players, string $type, int $period, array $admin) : void
 	{
 		global $phpbb_container;
 
@@ -472,12 +472,12 @@ class mot_sudoku_functions
 	/*
 	* Function to send a PM
 	*
-	* @params	array		$recipient		the array holding the information about the recipient
-	*		string		$subject		string holding the PM subject
-	*		string		$message		string holding the PM message
-	*		array		$sender		the array holding the information about the sender
+	* @params	$recipient		the array holding the information about the recipient
+	*		$subject		string holding the PM subject
+	*		$message		string holding the PM message
+	*		$sender		the array holding the information about the sender
 	*/
-	private function send_pm($recipient, $subject, $message, $sender)
+	private function send_pm(array $recipient, string $subject, string $message, array $sender) : void
 	{
 		if (!function_exists('submit_pm'))
 		{

@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -85,11 +85,12 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_HELPER_NOTE'		=> 'Die Helfer-Anzeige gilt nur für den aktuellen Spielstand, nach Veränderungen (z.B. Eingabe einer Ziffer) muss der Helfer aktualisiert werden.',
 	'MOT_SUDOKU_GAME_QUIT'			=> 'Spiel aufgeben',
 	'MOT_SUDOKU_GAME_QUIT_TITLE'	=> 'Wenn du nicht weiterkommst, kannst du hier aufgeben. Das Rätsel wird dann aus deinen gespeicherten Spielen gelöscht und du kannst ein neues Spiel beginnen.',
+	'MOT_SUDOKU_QUIT_PENALTY_TITLE'	=> 'Die Aufgabe des Spieles kostet einmalig %1$d Minuspunkte.',
 	'MOT_SUDOKU_MODAL_ABOVE'		=> 'Zifferneingabe oberhalb Spielfeld',
 	'MOT_SUDOKU_MODAL_OVER'			=> 'Zifferneingabe über Mauszeiger',
 
 	// Notes box
-	'MOT_SUDOKU_NOTE_TITLE'			=> 'Hinweise',
+	'MOT_SUDOKU_NOTES_TITLE'		=> 'Hinweise',
 	'MOT_SUDOKU_NOTE_TEXT'			=> 'Für jede neu gesetzte Ziffer erhältst du %1$d Punkte. Aber Vorsicht! Jedes Mal, wenn du eine Ziffer löschst oder änderst, werden dir direkt
 										%2$d Punkte abgezogen!<br><br>
 										Du kannst auch eine Ziffer für %3$d Punkte kaufen, wenn du absolut nicht weiter weißt; sie wird in eine zufällig gewählte freie Zelle gesetzt.<br>
@@ -144,11 +145,12 @@ $lang = array_merge($lang, [
 		2	=> 'Es gibt derzeit %1$d aktive Sudoku-Spieler: ',
 	],
 
-	// Notes
-	'MOT_SUDOKU_NOTES_TITLE'		=> 'Hinweis',
+	// Abort messages
+	'MOT_SUDOKU_NOTE_TITLE'			=> 'Hinweis',
 	'MOT_SUDOKU_NOTES_QUIT'			=> 'Das aufgegebene Spiel wurde aus der Tabelle der gespeicherten Spiele gelöscht, du wirst gleich zu einem neuen Spiel weitergeleitet.',
 	'MOT_SUDOKU_QUIT_MSG_TITlE'		=> 'Bestätigen',
 	'MOT_SUDOKU_QUIT_MSG_TEXT'		=> 'Willst du dieses Spiel wirklich aufgeben?',
+	'MOT_SUDOKU_QUIT_PENALTY'		=> 'Dein Punktekonto wurde mit %1$d Minuspunkten belastet!',
 
 	// Errors
 	'MOT_SUDOKU_ERROR_TITLE'		=> 'Fehler!',
