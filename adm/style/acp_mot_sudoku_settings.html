@@ -1,7 +1,7 @@
 {#
 *
-* @package MoT Sudoku v0.11.2
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 #}
@@ -127,6 +127,14 @@
 			<dt><label for="mot_sudoku_level_cost">{{ lang('ACP_MOT_SUDOKU_LEVEL_COST') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_LEVEL_COST_EXPL') }}</p></dt>
 			<dd>
 				<input type="number" min="0" max="50" id="mot_sudoku_level_cost" name="mot_sudoku_level_cost" value="{{ ACP_MOT_SUDOKU_LEVEL_COST }}">
+				{{ lang ('ACP_MOT_SUDOKU') ~ '-' ~ lang('ACP_MOT_SUDOKU_HELPER_POINTS_NAME') }}
+			</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="mot_sudoku_abort_cost">{{ lang('ACP_MOT_SUDOKU_ABORT_COST') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_ABORT_COST_EXPL') }}</p></dt>
+			<dd>
+				<input type="number" min="0" max="1000" id="mot_sudoku_abort_cost" name="mot_sudoku_abort_cost" value="{{ ACP_MOT_SUDOKU_ABORT_COST }}">
 				{{ lang ('ACP_MOT_SUDOKU') ~ '-' ~ lang('ACP_MOT_SUDOKU_HELPER_POINTS_NAME') }}
 			</dd>
 		</dl>

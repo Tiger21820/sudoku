@@ -4,6 +4,23 @@ All changes to `Sudoku` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.12.0] - 2025-07-01
+
+### Added
+-	Aborting a puzzle can now cost points if the admin so decides; for that purpose there is a new ACP setting to choose the number of points (0 - 1000) aborting will cost,
+	setting it to zero will disable that feature
+
+### Changed
+-	All function declarations into parameters with type declarations
+-	Minimum PHP version to 8.0.30 due to usage of type declarations for function parameters
+-	Some code improvements
+
+### Fixed
+-	Typo within the English ACP language file
+
+### Removed
+  
+  
 ## [0.11.3] - 2025-01-01
 
 ### Added

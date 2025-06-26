@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -68,6 +68,10 @@ $lang = array_merge($lang, [
 	'ACP_MOT_SUDOKU_RESET_COST_EXPL'		=> 'Anzahl der Punkte, die einem Spieler abgezogen werden, wenn er das aktuelle Spiel neu startet.',
 	'ACP_MOT_SUDOKU_LEVEL_COST'				=> 'Punktabzug für niedrigeren Schwierigkeitsgrad',
 	'ACP_MOT_SUDOKU_LEVEL_COST_EXPL'		=> 'Anzahl der Punkte, die pro gewähltem niedrigerem Schwierigkeitsgrad abgezogen werden.',
+	'ACP_MOT_SUDOKU_ABORT_COST'				=> 'Punktabzug für Abbruch eines Spieles',
+	'ACP_MOT_SUDOKU_ABORT_COST_EXPL'		=> 'Anzahl der Punkte (max. 1.000), die einem Spieler von seinen Gesamtpunkten der jeweiligen Rätseltypen abgezogen werden, wenn er ein
+												Spiel abbricht.<br>
+												Die Eingabe von `0` schaltet diese Funktion ab.',
 
 	'ACP_MOT_SUDOKU_HELPER_SETTINGS'		=> 'Hilfe-Einstellungen',
 	'ACP_MOT_SUDOKU_HELPER_ENABLE'			=> 'Sudoku Helfer aktivieren',
