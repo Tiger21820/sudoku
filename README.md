@@ -1,4 +1,4 @@
-# phpBB Sudoku Game ExtensionZZ
+# phpBB Sudoku Game Extension
 
 ![Version: 0.12.0](https://img.shields.io/badge/Version-0.12.0-green)  
   
