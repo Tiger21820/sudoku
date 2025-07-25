@@ -43,7 +43,6 @@ services:
             - '%mot.sudoku.tables.mot_sudoku_ninja%'
             - '%mot.sudoku.tables.mot_sudoku_samurai%'
             - '%mot.sudoku.tables.mot_sudoku_stats%'
-            - '@mot.sudoku.functions'
 
     mot.sudoku.listener:
         class: mot\sudoku\event\mot_sudoku_listener

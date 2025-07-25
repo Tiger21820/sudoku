@@ -1,8 +1,8 @@
 <?php
 /*
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -117,6 +117,7 @@ class mot_sudoku_acp
 				$this->config->set('mot_sudoku_number_cost', $this->request->variable('mot_sudoku_number_cost', 40));
 				$this->config->set('mot_sudoku_reset_cost', $this->request->variable('mot_sudoku_reset_cost', 200));
 				$this->config->set('mot_sudoku_level_cost', $this->request->variable('mot_sudoku_level_cost', 10));
+				$this->config->set('mot_sudoku_abort_cost', $this->request->variable('mot_sudoku_abort_cost', 10));
 				$this->config->set('mot_sudoku_helper_enable', $this->request->variable('mot_sudoku_helper_enable', 0));
 				$this->config->set('mot_sudoku_helper_cost', $this->request->variable('mot_sudoku_helper_cost', 0));
 				$this->config->set('mot_sudoku_helper_samurai_enable', $this->request->variable('mot_sudoku_helper_samurai_enable', 0));
@@ -214,6 +215,7 @@ class mot_sudoku_acp
 			'ACP_MOT_SUDOKU_NUMBER_COST'				=> $this->config['mot_sudoku_number_cost'],
 			'ACP_MOT_SUDOKU_RESET_COST'					=> $this->config['mot_sudoku_reset_cost'],
 			'ACP_MOT_SUDOKU_LEVEL_COST'					=> $this->config['mot_sudoku_level_cost'],
+			'ACP_MOT_SUDOKU_ABORT_COST'					=> $this->config['mot_sudoku_abort_cost'],
 			'ACP_MOT_SUDOKU_HELPER_ENABLE'				=> $this->config['mot_sudoku_helper_enable'],
 			'ACP_MOT_SUDOKU_HELPER_COST'				=> $this->config['mot_sudoku_helper_cost'],
 			'ACP_MOT_SUDOKU_HELPER_SAMURAI_ENABLE'		=> $this->config['mot_sudoku_helper_samurai_enable'],
@@ -618,10 +620,10 @@ class mot_sudoku_acp
 	/**
 	 * Set custom form action.
 	 *
-	 * @param	string		$u_action	Custom form action
-	 * @return	acp		$this		This controller for chaining calls
+	 * @param	$u_action	Custom form action
+	 * @return	$this		This controller for chaining calls
 	 */
-	public function set_page_url($u_action)
+	public function set_page_url(string $u_action) : object
 	{
 		$this->u_action = $u_action;
 

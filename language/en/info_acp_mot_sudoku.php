@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -34,7 +34,7 @@ $lang = array_merge($lang, [
 	'ACP_MOT_SUDOKU_GENERAL_SETTINGS'		=> 'General settings',
 	'ACP_MOT_SUDOKU_ENABLE'					=> 'Enable Sudoku',
 	'ACP_MOT_SUDOKU_ENABLE_EXPL'			=> 'Enable/disable Sudoku for authorised members, displays the link in the navigation bar depending on status.<br>
-												This settong does not affect founders, they always can see Sudoku.',
+												This setting does not affect founders, they always can see Sudoku.',
 	'ACP_MOT_SUDOKU_VERSION_CHECK'			=> 'Sudoku Version Check',
 	'ACP_MOT_SUDOKU_VERSION_CHECK_EXPL'		=> 'Checks if a new version of Sudoku is availavble',
 	'ACP_MOT_SUDOKU_VERSION_UP_TO_DATE'		=> 'Your version of Sudoku is up-to-date.',
@@ -67,6 +67,9 @@ $lang = array_merge($lang, [
 	'ACP_MOT_SUDOKU_RESET_COST_EXPL'		=> 'Number of points deducted for resetting the current game.',
 	'ACP_MOT_SUDOKU_LEVEL_COST'				=> 'Deduction for selected lower level',
 	'ACP_MOT_SUDOKU_LEVEL_COST_EXPL'		=> 'Number of points deducted for each selected lower level of difficulty',
+	'ACP_MOT_SUDOKU_ABORT_COST'				=> 'Number of points deducted for aborting the current game',
+	'ACP_MOT_SUDOKU_ABORT_COST_EXPL'		=> 'Number of points (max. 1,000) deducted from a player`s total points of the respective Sudoku type for aborting the current game.<br>
+												An input of `0` disables this function.',
 
 	'ACP_MOT_SUDOKU_HELPER_SETTINGS'		=> 'Helper settings',
 	'ACP_MOT_SUDOKU_HELPER_ENABLE'			=> 'Enable Sudoku Helper',

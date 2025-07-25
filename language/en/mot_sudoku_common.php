@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -85,11 +85,12 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_HELPER_NOTE'		=> 'The digits displayed by the helper are only valid for the current state, the helper must be updated after each change, e.g. placing a digit.',
 	'MOT_SUDOKU_GAME_QUIT'			=> 'Abort game',
 	'MOT_SUDOKU_GAME_QUIT_TITLE'	=> 'If you are stuck with this puzzle you can abort here. This puzzle will be deleted from your stored puzzles and you can start a new one.',
+	'MOT_SUDOKU_QUIT_PENALTY_TITLE'	=> 'For aborting this game you will be dinged %1$d points.',
 	'MOT_SUDOKU_MODAL_ABOVE'		=> 'Digit input above puzzle',
 	'MOT_SUDOKU_MODAL_OVER'			=> 'Digit input at mouse pointer',
 
 	// Notes box
-	'MOT_SUDOKU_NOTE_TITLE'			=> 'Notes',
+	'MOT_SUDOKU_NOTES_TITLE'		=> 'Notes',
 	'MOT_SUDOKU_NOTE_TEXT'			=> 'For every digit you place you earn %1$d points. But be careful! Every time you delete or change a digit you will instantly get deducted
 										%2$d points!<br><br>
 										If you really happen to be at the end of one`s rope you can buy a digit at the cost of %3$d points, the (empty) cell it will be placed in
@@ -145,12 +146,12 @@ $lang = array_merge($lang, [
 		2	=> 'Currently there are %1$d members playing Sudoku: ',
 	],
 
-	// Notes
-	'MOT_SUDOKU_NOTES_TITLE'		=> 'Note',
+	// Abort messages
+	'MOT_SUDOKU_NOTE_TITLE'			=> 'Note',
 	'MOT_SUDOKU_NOTES_QUIT'			=> 'The puzzle you have aborted has been deleted from the table holding your saved puzzles, you will be forwarded to a new puzzle in a few seconds.',
 	'MOT_SUDOKU_QUIT_MSG_TITlE'		=> 'Confirmation',
 	'MOT_SUDOKU_QUIT_MSG_TEXT'		=> 'Do you really want to abort this puzzle?',
-
+	'MOT_SUDOKU_QUIT_PENALTY'		=> '%1$d points have been deducted from your account!',
 	// Errors
 	'MOT_SUDOKU_ERROR_TITLE'		=> 'Error!',
 	'MOT_SUDOKU_ERROR_RESET'		=> 'Do you really want to reset this puzzle before trying for yourself?',

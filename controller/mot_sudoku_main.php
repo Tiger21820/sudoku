@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.1
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -68,14 +68,11 @@ class mot_sudoku_main
 	/** @var string mot.sudoku.tables.mot_sudoku_stats */
 	protected $mot_sudoku_stats_table;
 
-	/** @var \mot\sudoku\includes\mot_sudoku_functions */
-	protected $mot_sudoku_functions;
-
 	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\controller\helper $helper,
 								\phpbb\language\language $language, \phpbb\pagination $pagination, \phpbb\extension\manager $phpbb_extension_manager,
 								\phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user, $root_path, $mot_sudoku_classic_table,
 								$mot_sudoku_fame_table, $mot_sudoku_fame_month_table, $mot_sudoku_fame_year_table, $mot_sudoku_games_table, $mot_sudoku_ninja_table,
-								$mot_sudoku_samurai_table, $mot_sudoku_stats_table, $mot_sudoku_functions)
+								$mot_sudoku_samurai_table, $mot_sudoku_stats_table)
 	{
 		$this->auth = $auth;
 		$this->config = $config;
@@ -97,7 +94,6 @@ class mot_sudoku_main
 		$this->ninja_sudoku_table = $mot_sudoku_ninja_table;
 		$this->samurai_sudoku_table = $mot_sudoku_samurai_table;
 		$this->sudoku_stats_table = $mot_sudoku_stats_table;
-$this->mot_sudoku_functions = $mot_sudoku_functions;
 
 		$this->md_manager = $this->phpbb_extension_manager->create_extension_metadata_manager('mot/sudoku');
 		$this->ext_data = $this->md_manager->get_metadata();
@@ -198,6 +194,12 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 				[0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0],
 			],
+		];
+
+		$this->game_name_arr = [
+			'c'		=> 'classic_',
+			's'		=> 'samurai_',
+			'n'		=> 'ninja_',
 		];
 	}
 
@@ -875,6 +877,7 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 				'MOT_SUDOKU_HELPER_ENABLED'		=> $this->config['mot_sudoku_helper_enable'],
 				'MOT_SUDOKU_S_HELPER_ENABLED'	=> $this->config['mot_sudoku_helper_samurai_enable'],
 				'MOT_SUDOKU_N_HELPER_ENABLED'	=> $this->config['mot_sudoku_helper_ninja_enable'],
+				'MOT_SUDOKU_ABORT_COST'			=> (int) $this->config['mot_sudoku_abort_cost'],
 				'MOT_SUDOKU_USER_ID'			=> $this->user->data['user_id'],
 			]);
 
@@ -1168,42 +1171,8 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 													($sql_arr['helper'] * $this->config['mot_sudoku_helper_cost']) +
 													($sql_arr['level'] * $this->level_array[$sudoku_type] * $this->config['mot_sudoku_level_cost']));
 
-							// Now we can store this solved game into the SUDOKU_STATS_TABLE
-							$sql = 'SELECT * FROM ' . $this->sudoku_stats_table . '
-									WHERE user_id = ' . (int) $sql_arr['user_id'];
-							$result = $this->db->sql_query($sql);
-							$stats = $this->db->sql_fetchrow($result);
-							$this->db->sql_freeresult($result);
-
-							if ($stats['classic_played'] == 0)
-							{
-								$classic_ids = [(int) $sql_arr['game_id']];
-							}
-							else
-							{
-								$classic_ids = json_decode($stats['classic_ids']);
-								$classic_ids[] = (int) $sql_arr['game_id'];
-							}
-
-							// Add the gained points
-							$stats['classic_points'] += $sql_arr['points'];
-							// Increment the played games count
-							$stats['classic_played']++;
-							// Add the game id to the played games list
-							$stats['classic_ids'] = json_encode($classic_ids);
-
-							$sql = 'UPDATE ' . $this->sudoku_stats_table . '
-									SET ' . $this->db->sql_build_array('UPDATE', $stats) . '
-									WHERE user_id = ' . (int) $sql_arr['user_id'];
-							$this->db->sql_query($sql);
-
-							// Add the points gained to the fame table
-							$up_points = $this->save_to_fame($sql_arr['user_id'], $sudoku_type, $sql_arr['points']);
-
-							// Since this game is finished we delete it from the SUDOKU_GAMES_TABLE
-							$sql = 'DELETE FROM ' . $this->sudoku_games_table . '
-									WHERE entry_id = ' . (int) $sudoku_entry;
-							$this->db->sql_query($sql);
+							// Now we can store this solved game into the SUDOKU_STATS_TABLE, delete it from the SUDOKU_GAMES_TABLE and update the SUDOKU_FAME_TABLE
+							$up_points = $this->save_solved_game((int) $sql_arr['user_id'], $sudoku_type, (int) $sql_arr['game_id'], (int) $sql_arr['points'], $sudoku_entry);
 						}
 						else
 						{
@@ -1268,42 +1237,8 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 													($sql_arr['helper'] * $this->config['mot_sudoku_helper_samurai_cost']) +
 													($sql_arr['level'] * $this->level_array[$sudoku_type] * $this->config['mot_sudoku_level_cost']));
 
-							// Now we can store this solved game to the SUDOKU_STATS_TABLE
-							$sql = 'SELECT * FROM ' . $this->sudoku_stats_table . '
-									WHERE user_id = ' . (int) $sql_arr['user_id'];
-							$result = $this->db->sql_query($sql);
-							$stats = $this->db->sql_fetchrow($result);
-							$this->db->sql_freeresult($result);
-
-							if ($stats['samurai_played'] == 0)
-							{
-								$samurai_ids = [(int) $sql_arr['game_id']];
-							}
-							else
-							{
-								$samurai_ids = json_decode($stats['samurai_ids']);
-								$samurai_ids[] = (int) $sql_arr['game_id'];
-							}
-
-							// Add the gained points
-							$stats['samurai_points'] += $sql_arr['points'];
-							// Increment the played games count
-							$stats['samurai_played']++;
-							// Add the game id to the played games list
-							$stats['samurai_ids'] = json_encode($samurai_ids);
-
-							$sql = 'UPDATE ' . $this->sudoku_stats_table . '
-									SET ' . $this->db->sql_build_array('UPDATE', $stats) . '
-									WHERE user_id = ' . (int) $sql_arr['user_id'];
-							$this->db->sql_query($sql);
-
-							// Add the points gained to the fame table
-							$up_points = $this->save_to_fame($sql_arr['user_id'], $sudoku_type, $sql_arr['points']);
-
-							// Since this game is finished we delete it from the SUDOKU_GAMES_TABLE
-							$sql = 'DELETE FROM ' . $this->sudoku_games_table . '
-									WHERE entry_id = ' . (int) $sudoku_entry;
-							$this->db->sql_query($sql);
+							// Now we can store this solved game into the SUDOKU_STATS_TABLE, delete it from the SUDOKU_GAMES_TABLE and update the SUDOKU_FAME_TABLE
+							$up_points = $this->save_solved_game((int) $sql_arr['user_id'], $sudoku_type, (int) $sql_arr['game_id'], (int) $sql_arr['points'], $sudoku_entry);
 						}
 						else
 						{
@@ -1368,42 +1303,8 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 													($sql_arr['helper'] * $this->config['mot_sudoku_helper_ninja_cost']) +
 													($sql_arr['level'] * $this->level_array[$sudoku_type] * $this->config['mot_sudoku_level_cost']));
 
-							// Now we can store this solved game to the SUDOKU_STATS_TABLE
-							$sql = 'SELECT * FROM ' . $this->sudoku_stats_table . '
-									WHERE user_id = ' . (int) $sql_arr['user_id'];
-							$result = $this->db->sql_query($sql);
-							$stats = $this->db->sql_fetchrow($result);
-							$this->db->sql_freeresult($result);
-
-							if ($stats['ninja_played'] == 0)
-							{
-								$ninja_ids = [(int) $sql_arr['game_id']];
-							}
-							else
-							{
-								$ninja_ids = json_decode($stats['ninja_ids']);
-								$ninja_ids[] = (int) $sql_arr['game_id'];
-							}
-
-							// Add the gained points
-							$stats['ninja_points'] += $sql_arr['points'];
-							// Increment the played games count
-							$stats['ninja_played']++;
-							// Add the game id to the played games list
-							$stats['ninja_ids'] = json_encode($ninja_ids);
-
-							$sql = 'UPDATE ' . $this->sudoku_stats_table . '
-									SET ' . $this->db->sql_build_array('UPDATE', $stats) . '
-									WHERE user_id = ' . (int) $sql_arr['user_id'];
-							$this->db->sql_query($sql);
-
-							// Add the points gained to the fame table
-							$up_points = $this->save_to_fame($sql_arr['user_id'], $sudoku_type, $sql_arr['points']);
-
-							// Since this game is finished we delete it from the SUDOKU_GAMES_TABLE
-							$sql = 'DELETE FROM ' . $this->sudoku_games_table . '
-									WHERE entry_id = ' . (int) $sudoku_entry;
-							$this->db->sql_query($sql);
+							// Now we can store this solved game into the SUDOKU_STATS_TABLE, delete it from the SUDOKU_GAMES_TABLE and update the SUDOKU_FAME_TABLE
+							$up_points = $this->save_solved_game((int) $sql_arr['user_id'], $sudoku_type, (int) $sql_arr['game_id'], (int) $sql_arr['points'], $sudoku_entry);
 						}
 						else
 						{
@@ -1727,7 +1628,7 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 	}
 
 	/**
-	* Handle quitting the game
+	* Handle aborting the game
 	*
 	*/
 	public function mot_sudoku_ajax_quit()
@@ -1736,10 +1637,13 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 		{
 			$sudoku_entry = $this->request->variable('entry', 0);
 			$user_id = $this->request->variable('user_id', 0);
+			$sudoku_type = $this->request->variable('type', '');
 
 			$result = [
 				'logged_in'	=> false,
 				'success'	=> false,
+				'points'	=> (int) $this->config['mot_sudoku_abort_cost'],
+				'up_points'	=> 0,
 			];
 			// First we check whether the user is logged in
 			if ((int) $user_id == $this->user->data['user_id'])
@@ -1747,10 +1651,15 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 				// Flag the user as logged in
 				$result['logged_in'] = true;
 
-				// Check whether the player already started this game
-				if ($sudoku_entry)
+				if ($sudoku_entry)	// Check whether the player wants do abort a game in progress
 				{
-					// Yes, player has started this game already and wants to abort so we delete it from the SUDOKU_GAMES_TABLE
+					if ((int) $this->config['mot_sudoku_abort_cost'] > 0)	// Is there a penalty for aborting?
+					{
+						// Save the penalty points (using 0 as game_id, so this puzzle can again be presented at another time)
+						$result['up_points'] = $this->save_solved_game($user_id, $sudoku_type, 0, (-1 * (int) $this->config['mot_sudoku_abort_cost']), $sudoku_entry);
+					}
+
+					// Now delete this game from the SUDOKU_GAMES_TABLE
 					$sql = 'DELETE FROM ' . $this->sudoku_games_table . '
 							WHERE entry_id = ' . (int) $sudoku_entry;
 					$this->db->sql_query($sql);
@@ -1984,9 +1893,9 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 	/**
 	* Get the count of all selective values in the array
 	*
-	* @param	array		$arr		The array to count in
+	* @param	$arr		The array to count in
 	*
-	* @return	array				An array with the selective values as key and their count as value (e.g. '0' => (int) 5)
+	* @return	An array with the selective values as key and their count as value (e.g. '0' => (int) 5)
 	*/
 	private function array_count_recursive(array $arr): array
 	{
@@ -2001,11 +1910,11 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 	/**
 	* Get the count of all cells within two combined arrays of 9 * 9 integer values which are both holding a 0
 	*
-	* @param	array		$arr1, $arr2	the two arrays to combine
+	* @param	$arr1, $arr2	the two arrays to combine
 	*
-	* @return	integer				the number of zeros found in both arrays at the same place
+	* @return	The number of zeros found in both arrays at the same place
 	*/
-	private function count_empty_cells($arr1, $arr2): int
+	private function count_empty_cells(array $arr1, array $arr2) : int
 	{
 		$count = 0;
 		for ($i = 0; $i < 9; $i++)
@@ -2021,12 +1930,12 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 	/**
 	* Get the count of all cells within two combined arrays 9 * 9 integer values within x arrays which are both holding a 0
 	*
-	* @param	array		$arr1, $arr2	the two arrays to combine
-	*		int		$grids		The number of 9 * 9 arrays
+	* @param	$arr1, $arr2	the two arrays to combine
+	*		$grids		The number of 9 * 9 arrays
 	*
-	* @return	integer				the number of zeros found in both arrays at the same place
+	* @return	The number of zeros found in both arrays at the same place
 	*/
-	private function count_empty_grid_cells($arr1, $arr2, $grids): int
+	private function count_empty_grid_cells(array $arr1, array $arr2, int $grids) : int
 	{
 		$count = 0;
 		for ($g = 0; $g < $grids; $g++)
@@ -2045,12 +1954,12 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 	/**
 	* Check whether the values other than 0 in the array to be checked are identical to the values in the corresponding cells of the solution array
 	*
-	* @param	array		$solution_arr	the 9 * 9 array with the values of the solution
-	*		array		$check_arr		the 9 * 9 array with the values to be checked which still has values of 0 where the pre-defined digits are
+	* @param	$solution_arr	the 9 * 9 array with the values of the solution
+	*		$check_arr		the 9 * 9 array with the values to be checked which still has values of 0 where the pre-defined digits are
 	*
-	* @return	boolean				either true = the values are identical or false = at least one value differs in which case they are deleted from the array $check_arr
+	* @return	Either true = the values are identical or false = at least one value differs in which case they are deleted from the array $check_arr
 	*/
-	private function check_solution($solution_arr, &$check_arr)
+	private function check_solution(array $solution_arr, array &$check_arr) : bool
 	{
 		$return = true;		// We assume that everything is correct and change this only if at least one value differs
 		for ($i = 0; $i < 9; $i++)
@@ -2066,15 +1975,67 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 	}
 
 	/**
-	* Add points to the players account of the current month
+	* Save the points gained into the MOT_SUDOKU_STATS_TABLE and the MOT_SUDOKU_FAME_TABLE
 	*
-	* @param	integer	$user_id		current user
-	*		string		$game_type		Sudoku puzzle type
-	*		integer 	$points		points to add
+	* @params	$user_id		current user
+	*		$sudoku_type	Sudoku puzzle type
+	*		$game_id		id of the finished game, 0 in case of abort
+	*		$points		points to add
+	*		$sudoku_entry	the id into th MOT_SUDOKU_GAMES_TABLE
 	*
-	* @return	boolean/float			either false = no UP points credited or float = amount of UP points credited
+	* @return	Either false = no UP points credited or float = amount of UP points credited
 	*/
-	private function save_to_fame($user_id, $game_type, $points)
+	private function save_solved_game(int $user_id, string $sudoku_type, int $game_id, int $points, int $sudoku_entry) : bool|float
+	{
+		$sql = 'SELECT * FROM ' . $this->sudoku_stats_table . '
+				WHERE user_id = ' . (int) $user_id;
+		$result = $this->db->sql_query($sql);
+		$stats = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		if ($stats[$this->game_name_arr[$sudoku_type] . 'played'] == 0)
+		{
+			$ids = [$game_id];
+		}
+		else
+		{
+			$ids = json_decode($stats[$this->game_name_arr[$sudoku_type] . 'ids']);
+			$ids[] = $game_id;
+		}
+
+		// Add the gained points
+		$stats[$this->game_name_arr[$sudoku_type] . 'points'] += $points;
+		// Increment the played games count
+		$stats[$this->game_name_arr[$sudoku_type] . 'played']++;
+		// Add the game id to the played games list
+		$stats[$this->game_name_arr[$sudoku_type] . 'ids'] = json_encode($ids);
+
+		$sql = 'UPDATE ' . $this->sudoku_stats_table . '
+				SET ' . $this->db->sql_build_array('UPDATE', $stats) . '
+				WHERE user_id = ' . (int) $user_id;
+		$this->db->sql_query($sql);
+
+		// Add the points gained to the fame table
+		$up_points = $this->save_to_fame($user_id, $sudoku_type, $points);
+
+		// Since this game is finished we delete it from the SUDOKU_GAMES_TABLE
+		$sql = 'DELETE FROM ' . $this->sudoku_games_table . '
+				WHERE entry_id = ' . (int) $sudoku_entry;
+		$this->db->sql_query($sql);
+
+		return $up_points;
+	}
+
+	/**
+	* Add points to the player's account of the current month
+	*
+	* @param	$user_id		current user
+	*		$game_type		Sudoku puzzle type
+	*		$points		points to add
+	*
+	* @return	Either false = no UP points credited or float = amount of UP points credited
+	*/
+	private function save_to_fame(int $user_id, string $game_type, int $points) : bool|float
 	{
 		global $phpbb_container;
 
@@ -2084,7 +2045,7 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 
 		$return = 0;	// Set it to false initially, if points system is activated and UP enabled this will hold the UP points gathered
 
-		// Check whether there already is an entry with the users data for the current month
+		// Check whether there already is an entry with the users data for the current day
 		$sql_arr = [
 			'year'			=> $date_arr['year'],
 			'month'			=> $date_arr['mon'],
@@ -2123,7 +2084,7 @@ $this->mot_sudoku_functions = $mot_sudoku_functions;
 		}
 		$this->db->sql_query($sql);
 
-		// Check if points system is activated and UP enabled and if yes calculate awarded points into UP points and add to the users account
+		// Check if points system is activated and UP enabled and if yes calculate awarded points into UP points and add to the user's account
 		if ($this->config['mot_sudoku_points_enable'] && $this->phpbb_extension_manager->is_enabled('dmzx/ultimatepoints'))
 		{
 			$this->functions_points = $phpbb_container->get('dmzx.ultimatepoints.core.functions.points');

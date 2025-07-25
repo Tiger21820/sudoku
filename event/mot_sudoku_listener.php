@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.11.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -88,7 +88,7 @@ class mot_sudoku_listener implements EventSubscriberInterface
 	 *
 	 * @param \phpbb\event\data $event
 	 */
-	public function load_language_on_setup($event)
+	public function load_language_on_setup(object $event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];
 		$lang_set_ext[] = [

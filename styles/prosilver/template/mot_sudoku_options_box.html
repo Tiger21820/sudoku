@@ -1,7 +1,7 @@
 {#
 *
-* @package MoT Sudoku v0.10.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.12.0
+* @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 #}
@@ -48,9 +48,9 @@
 </div>
 
 <div class="centered-text-div">
-	<button class="button options-button" id="game_quit_button_{{ MOT_SUDOKU_GAME_TYPE }}" title="{{ lang('MOT_SUDOKU_GAME_QUIT_TITLE') }}">{{ lang('MOT_SUDOKU_GAME_QUIT') }}</button>
+	<button class="button options-button" id="game_quit_button_{{ MOT_SUDOKU_GAME_TYPE }}" title="{{ lang('MOT_SUDOKU_GAME_QUIT_TITLE') }}{% if MOT_SUDOKU_ABORT_COST %}{{ '\n' ~ lang('MOT_SUDOKU_QUIT_PENALTY_TITLE', MOT_SUDOKU_ABORT_COST) }}{% endif %}">{{ lang('MOT_SUDOKU_GAME_QUIT') }}</button>
 
-{#	<button class="button options-button" id="game_store_button_{{ MOT_SUDOKU_GAME_TYPE }}" title="{{ MOT_SUDOKU_BUY_NUMBER_TITLE }}">{{ lang('MOT_SUDOKU_BUY_NUMBER') }}</button>#}
+{#	<button class="button options-button" id="game_store_button_{{ MOT_SUDOKU_GAME_TYPE }}" title="{{ MOT_SUDOKU_STORE_GAME_TITLE }}">{{ lang('MOT_SUDOKU_STORE_GAME') }}</button>#}
 </div>
 
 <hr>
