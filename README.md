@@ -8,7 +8,7 @@
 
 [![Build Status](https://github.com/Mike-on-Tour/sudoku/workflows/Tests/badge.svg)](https://github.com/Mike-on-Tour/sudoku/actions)
 
-## Description
+## Descriptionc
 This extension is a version of the popular number-placement puzzle.
 Each user plays their own puzzles. Users gain more points if they make less mistakes. A highscore as well as a hall of fame is kept for each type of Sudoku puzzles, showing who
 is best at solving puzzles. It also features variants on the puzzle, such as Sudoku Samurai and Sudoku Ninja.
