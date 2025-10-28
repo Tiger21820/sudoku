@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
+* @package MoT Sudoku v0.12.1
 * @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -31,6 +31,9 @@ class mot_sudoku_main
 
 	/** @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
+
+	/** @var ContainerInterface */
+	protected $phpbb_container;
 
 	/** @var \phpbb\request\request_interface */
 	protected $request;
@@ -70,7 +73,7 @@ class mot_sudoku_main
 
 	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\controller\helper $helper,
 								\phpbb\language\language $language, \phpbb\pagination $pagination, \phpbb\extension\manager $phpbb_extension_manager,
-								\phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user, $root_path, $mot_sudoku_classic_table,
+								$phpbb_container, \phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user, $root_path, $mot_sudoku_classic_table,
 								$mot_sudoku_fame_table, $mot_sudoku_fame_month_table, $mot_sudoku_fame_year_table, $mot_sudoku_games_table, $mot_sudoku_ninja_table,
 								$mot_sudoku_samurai_table, $mot_sudoku_stats_table)
 	{
@@ -81,6 +84,7 @@ class mot_sudoku_main
 		$this->language = $language;
 		$this->pagination = $pagination;
 		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
+		$this->phpbb_container = $phpbb_container;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
@@ -2037,8 +2041,6 @@ class mot_sudoku_main
 	*/
 	private function save_to_fame(int $user_id, string $game_type, int $points) : bool|float
 	{
-		global $phpbb_container;
-
 		// Get local date variables and user id first
 		$date_arr = getdate();
 		$julian_day = gregoriantojd($date_arr['mon'], $date_arr['mday'], $date_arr['year']);
@@ -2087,7 +2089,7 @@ class mot_sudoku_main
 		// Check if points system is activated and UP enabled and if yes calculate awarded points into UP points and add to the user's account
 		if ($this->config['mot_sudoku_points_enable'] && $this->phpbb_extension_manager->is_enabled('dmzx/ultimatepoints'))
 		{
-			$this->functions_points = $phpbb_container->get('dmzx.ultimatepoints.core.functions.points');
+			$this->functions_points = $this->phpbb_container->get('dmzx.ultimatepoints.core.functions.points');
 			$factor_points = round($this->config['mot_sudoku_points_ratio'] * $points, 2);
 			$this->functions_points->add_points($user_id, $factor_points);
 			$return = $factor_points;
