@@ -4,7 +4,19 @@ All changes to `Sudoku` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.12.0] - 2025-07-01
+## [0.12.1] - 2025-10-28
+
+### Added
+
+### Changed
+-	The phpBB service container is now included with service injection instead of as global variable
+
+### Fixed
+
+### Removed
+  
+  
+## [0.12.0] - 2025-06-26
 
 ### Added
 -	Aborting a puzzle can now cost points if the admin so decides; for that purpose there is a new ACP setting to choose the number of points (0 - 1000) aborting will cost,

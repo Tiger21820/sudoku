@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
+* @package MoT Sudoku v0.12.1
 * @copyright (c) 2023 - 2025 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -19,6 +19,9 @@ class mot_sudoku_functions
 
 	/** @var \phpbb\language\language $language */
 	protected $language;
+
+	/** @var ContainerInterface */
+	protected $phpbb_container;
 
 	/** @var string phpBB root path */
 	protected $root_path;
@@ -38,12 +41,13 @@ class mot_sudoku_functions
 	/**
 	* Constructor
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, $root_path, $php_ext,
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, $phpbb_container, $root_path, $php_ext,
 								$mot_sudoku_fame_table, $mot_sudoku_fame_month_table, $mot_sudoku_fame_year_table)
 	{
 		$this->config = $config;
 		$this->db = $db;
 		$this->language = $language;
+		$this->phpbb_container = $phpbb_container;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
 		$this->sudoku_fame_table = $mot_sudoku_fame_table;
@@ -388,10 +392,8 @@ class mot_sudoku_functions
 	*/
 	private function get_points(array $players, string $type, int $period, array $admin) : void
 	{
-		global $phpbb_container;
-
 		// Get a handle for the function from UP
-		$this->functions_points = $phpbb_container->get('dmzx.ultimatepoints.core.functions.points');
+		$this->functions_points = $this->phpbb_container->get('dmzx.ultimatepoints.core.functions.points');
 
 		// Initialize the types arrays
 		$types_arr = [
