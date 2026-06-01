@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -53,6 +53,14 @@ $lang = array_merge($lang, [
 	'ACP_MOT_SUDOKU_FAME_LIMIT_EXP'			=> 'You can select the number of players to be displayed in the tables of the »Hall of Fame«.',
 	'ACP_MOT_SUDOKU_PUZZLE_TITLE'			=> 'Display puzzle title',
 	'ACP_MOT_SUDOKU_PUZZLE_TITLE_EXPL'		=> 'Enables display of the current game`s title.',
+	'ACP_MOT_SUDOKU_GAME_SAVE_TITLE'		=> 'Store active puzzles',
+	'ACP_MOT_SUDOKU_GAME_SAVE_TITLE_EXPL'	=> 'If this setting is enabled (default), users kann store active games to the database for later re-use; after storing an active game
+												a new game of the same puzzle type will be started.<br>
+												If a user has stored puzzles they will be displayed with a table at the start of Sudoku on a tab which is only visible if there are
+												any stored puzzles. Those puzzles can be selected for loading them as the active game or for deleting them from the stored puzzles.
+												Alternatively he can switch to another tab.<br>
+												If a deduction of points is active for aborting a game this will apply for deleting a puzzle from the stored puzzles pool. This
+												deduction will also apply if by loading a stored puzzle an active game is replaced and thus aborted.',
 	'ACP_MOT_SUDOKU_ROWS_PER_PAGE'			=> 'Rows per table page for Sudoku packs',
 	'ACP_MOT_SUDOKU_ROWS_PER_PAGE_EXP'		=> 'Choose the number of rows to be displayed per table page when displaying the Sudoku packs.',
 

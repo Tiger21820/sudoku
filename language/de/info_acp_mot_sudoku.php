@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -53,6 +53,15 @@ $lang = array_merge($lang, [
 	'ACP_MOT_SUDOKU_FAME_LIMIT_EXP'			=> 'Hier kannst du auswählen wie viele Spieler in den Tabellen der Ruhmeshalle angezeigt werden sollen.',
 	'ACP_MOT_SUDOKU_PUZZLE_TITLE'			=> 'Zeige Puzzle Titel',
 	'ACP_MOT_SUDOKU_PUZZLE_TITLE_EXPL'		=> 'Zeigt den Namen des aktuellen Spiels an.',
+	'ACP_MOT_SUDOKU_GAME_SAVE_TITLE'		=> 'Speichern von Rätseln aktivieren',
+	'ACP_MOT_SUDOKU_GAME_SAVE_TITLE_EXPL'	=> 'Wenn diese Einstellung aktiviert ist (Standard), können Spieler teilgelöste Rätsel abspeichern und später wieder laden; nach dem
+												Speichern wird ein neues Rätsel geladen.<br>
+												Existieren für einen Spieler gespeicherte Rätsel, werden ihm diese zu Spielbeginn in einem nur dann sichtbaren Reiter tabellarisch
+												angezeigt und er kann dann entweder ein gespeichertes Rätsel zum Weiterspielen laden oder ein gespeichertes Rätsel löschen oder zu
+												einem anderen Reiter wechseln.<br>
+												Ist für den Abbruch eines Spieles ein Punktabzug vorgesehen, wird beim Löschen eines gespeicherten Spieles dieser Punkteabzug auf
+												die Gesamtpunkte des jeweiligen Rätseltyps angerechnet. Gleiches gilt, wenn durch das Laden eines gespeicherten Rätsels ein aktives
+												Rätsel abgebrochen wird.',
 	'ACP_MOT_SUDOKU_ROWS_PER_PAGE'			=> 'Zeilen pro Tabellenseite für Spielepakete',
 	'ACP_MOT_SUDOKU_ROWS_PER_PAGE_EXP'		=> 'Wähle hier die Anzahl der Zeilen, die bei der Anzeige der Spielepakete pro Tabellenseite angezeigt werden soll.',
 

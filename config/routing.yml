@@ -22,6 +22,10 @@ mot_sudoku_ajax_quit:
     path: /mot_sudoku_ajax_quit
     defaults: { _controller: mot.sudoku.mot_sudoku_main:mot_sudoku_ajax_quit }
 
+mot_sudoku_ajax_save:
+    path: /mot_sudoku_ajax_save
+    defaults: { _controller: mot.sudoku.mot_sudoku_main:mot_sudoku_ajax_save }
+
 mot_sudoku_ajax_modal:
     path: /mot_sudoku_ajax_modal
     defaults: { _controller: mot.sudoku.mot_sudoku_main:mot_sudoku_ajax_modal }

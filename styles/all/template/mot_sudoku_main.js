@@ -1,7 +1,7 @@
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -497,6 +497,65 @@ $("#game_quit_button_c, #game_quit_button_s, #game_quit_button_n").on("click", f
 			}
 		});
 
+	}
+});
+
+/*
+* Store the game to the DB
+*
+*/
+$("#game_store_button_c, #game_store_button_s, #game_store_button_n").on("click", function() {
+	if (motSudoku.puzzleInProgress) {
+		let type = $(this).attr('id').substr(18, 1);
+
+		phpbb.confirm(motSudoku.confirmSaveMsg, function(save) {
+			if (save) {
+				// Ajax call
+				$.post(
+					motSudoku.ajaxGameSave,
+					{
+						entry:		motSudoku.gameEntryId,
+						user_id:	motSudoku.userId,
+						type:		type,
+					},
+					function(result) {
+						// First we check if the player is still logged in and if he is not we reload the page and thus enforce a new login
+						if (!result['logged_in']) {
+							location.reload();
+						}
+
+						// Now check whether we have got a successful response
+						if (result['success']) {
+							phpbb.alert(motSudoku.notesTitle, motSudoku.notesSave);
+							phpbb.loadingIndicator();
+
+							// and now load a new game
+							switch (type){
+								case 'c':
+									setTimeout(function() {
+										$("#mot_sudoku_classic").trigger( "submit" );
+									}, 5000);
+									break;
+
+								case 's':
+									setTimeout(function() {
+										$("#mot_sudoku_samurai").trigger( "submit" );
+									}, 5000);
+									break;
+
+								case 'n':
+									setTimeout(function() {
+										$("#mot_sudoku_ninja").trigger( "submit" );
+									}, 5000);
+									break;
+							}
+						} else {
+							phpbb.alert(motSudoku.errorErr, motSudoku.errorSave);
+						}
+					}
+				);
+			}
+		});
 	}
 });
 

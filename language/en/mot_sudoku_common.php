@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -23,6 +23,7 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_TITLE'				=> 'Sudoku',
 
 	// Tabs
+	'MOT_SUDOKU_TAB_LOAD'			=> 'Load puzzle',
 	'MOT_SUDOKU_TAB_CLASSIC'		=> 'Classic Sudoku',
 	'MOT_SUDOKU_TAB_SAMURAI'		=> 'Samurai Sudoku',
 	'MOT_SUDOKU_TAB_NINJA'			=> 'Ninja Sudoku',
@@ -42,6 +43,29 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_INCORRECT_END'		=> 'Unfortunately your solution was not entirely correct. Incorrect digits were deleted and the points for their deletion deducted from your
 										points.<br>
 										Please take the opportunity to enter the correct digits.',
+	// Load game
+	'MOT_SUDOKU_LOAD_TAB_EXPL'		=> 'This table shows all your stored puzzles. You can either load a puzzle to continue solving it or delete it from the pool of your stored
+										puzzles by clicking on the icons in the column `Options`.<br>
+										<strong>Please note:</strong> If you load a puzzle while already having an active puzzle of the same Sudoku type that active game will be
+										aborted and deleted from the table holding your active games. If aborting a game results in the deduction of points this will apply in that
+										case, too. Deduction of points will also applay if you delete a puzzle from this pool of stored puzzles because deleting a stored game is
+										rated as aborting a game as well!',
+	'MOT_SUDOKU_ABORT_PENALTY'		=> [
+		1	=> 'For aborting a game currently <strong>%1$d point</strong> will be deducted from your account!',
+		2	=> 'For aborting a game currently <strong>%1$d points</strong> will be deducted from your account!',
+	],
+	'MOT_SUDOKU_PUZZLE_NAME'		=> 'Puzzle name',
+	'MOT_SUDOKU_PUZZLE_TYPE'		=> 'Sudoku type',
+	'MOT_SUDOKU_POINTS'				=> 'Points',
+	'MOT_SUDOKU_PUZZLE_LOAD'		=> 'Load puzzle',
+	'MOT_SUDOKU_PUZZLE_DELETE'		=> 'Delete puzzle',
+	'MOT_SUDOKU_DELETE_CONFIRM'		=> 'Are you certain that you want to delete the puzzle named <strong>%1$s</strong> from your pool of stored games?',
+	'MOT_SUDOKU_DELETED_GAME'		=> 'The puzzle named <strong>%1$s</strong> has been deleted from your pool of stored games.',
+	'MOT_SUDOKU_DELETED_POINTS'		=> '<br><strong>%1$d points</strong> were deducted from your account.',
+	'MOT_SUDOKU_DELETED_UPPOINTS'	=> '<br>In addition <strong>%1$s points</strong> were deducted from your UP account.',
+	'MOT_SUDOKU_LOAD_CONFIRM'		=> 'Are you certain that you want to load the puzzle named <strong>%1$s</strong> to further solve it?',
+	'MOT_SUDOKU_LOAD_ACTIVE_CONF'	=> '<br>Please note that you do have an active game of that puzzle type which will be aborted by this action!',
+	'MOT_SUDOKU_LOAD_PENALTY'		=> '<br>Additionally <strong>%1$d points</strong> will be deducted from your account. If UP is enabled there will be a deduction from that account, too.',
 
 	// Classic Sudoku
 	'MOT_SUDOKU_NO_CLASSIC_PUZZLES'	=> 'Currently there are no Classic Sudoku puzzles avaiable, a game pack must be imported by the administrator!',
@@ -86,6 +110,8 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_GAME_QUIT'			=> 'Abort game',
 	'MOT_SUDOKU_GAME_QUIT_TITLE'	=> 'If you are stuck with this puzzle you can abort here. This puzzle will be deleted from your stored puzzles and you can start a new one.',
 	'MOT_SUDOKU_QUIT_PENALTY_TITLE'	=> 'For aborting this game you will be dinged %1$d points.',
+	'MOT_SUDOKU_STORE_GAME'			=> 'Store game',
+	'MOT_SUDOKU_STORE_GAME_TITLE'	=> 'If you are stuck with this puzzle you can store it here for later re-use and a new puzzle will be presented.',
 	'MOT_SUDOKU_MODAL_ABOVE'		=> 'Digit input above puzzle',
 	'MOT_SUDOKU_MODAL_OVER'			=> 'Digit input at mouse pointer',
 
@@ -132,12 +158,24 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_CURRENT_YEAR'		=> 'Current year',
 	'MOT_SUDOKU_LAST_MONTHS'		=> [
 		1	=> 'Last month',
-		2	=> 'Last %1$d monthse',
+		2	=> 'Last %1$d months',
 	],
 	'MOT_SUDOKU_LAST_YEARS'			=> [
 		1	=> 'Last year',
 		2	=> 'Last %1$d years',
 	],
+	'JANUARY'						=> 'January',
+	'FEBRUARY'						=> 'February',
+	'MARCH'							=> 'March',
+	'APRIL'							=> 'April',
+	'MAY'							=> 'May',
+	'JUNE'							=> 'June',
+	'JULY'							=> 'July',
+	'AUGUST'						=> 'August',
+	'SEPTEMBER'						=> 'September',
+	'OCTOBER'						=> 'October',
+	'NOVEMBER'						=> 'November',
+	'DECEMBER'						=> 'December',
 
 	// Online list
 	'MOT_SUDOKU_TOTAL_PLAYERS'		=> [
@@ -148,10 +186,13 @@ $lang = array_merge($lang, [
 
 	// Abort messages
 	'MOT_SUDOKU_NOTE_TITLE'			=> 'Note',
-	'MOT_SUDOKU_NOTES_QUIT'			=> 'The puzzle you have aborted has been deleted from the table holding your saved puzzles, you will be forwarded to a new puzzle in a few seconds.',
+	'MOT_SUDOKU_NOTES_QUIT'			=> 'The puzzle you have aborted has been deleted from the table holding your active puzzles, you will be forwarded to a new puzzle in a few seconds.',
+	'MOT_SUDOKU_NOTES_SAVE'			=> 'The puzzle has been stored into the database and removed from the table holding your active games, you will be forwarded to a new puzzle in a few seconds.',
 	'MOT_SUDOKU_QUIT_MSG_TITlE'		=> 'Confirmation',
 	'MOT_SUDOKU_QUIT_MSG_TEXT'		=> 'Do you really want to abort this puzzle?',
 	'MOT_SUDOKU_QUIT_PENALTY'		=> '%1$d points have been deducted from your account!',
+	'MOT_SUDOKU_SAVE_MSG_TEXT'		=> 'Do you really want to store this puzzle?',
+
 	// Errors
 	'MOT_SUDOKU_ERROR_TITLE'		=> 'Error!',
 	'MOT_SUDOKU_ERROR_RESET'		=> 'Do you really want to reset this puzzle before trying for yourself?',
@@ -159,6 +200,7 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_BUY_LAST_DIGIT'		=> 'Do you really want to buy the last missing digit?',
 	'MOT_SUDOKU_ERROR_HELPER'		=> 'Do you really want to use the helper before trying for yourself?',
 	'MOT_SUDOKU_ERROR_QUIT'			=> 'Do you really want to abort this puzzle before trying for yourself?',
+	'MOT_SUDOKU_ERROR_SAVE'			=> 'Do you really want to store this puzzle before even inserting the first digit?',
 	'MOT_SUDOKU_ERROR_LEVEL'		=> 'Please select a new level first!',
 
 	// PM texts
