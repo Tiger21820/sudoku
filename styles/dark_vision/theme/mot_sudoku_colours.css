@@ -1,8 +1,8 @@
 /**
 *
 * Colour settings for Dark Vision (by Kirk)
-* @package MoT Sudoku v0.8.0
-* @copyright (c) 2023 - 2024 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -43,26 +43,45 @@
 	background-color: #cccfbc47;
 }
 
+table.table1 tbody th {
+	background-color: #B5B7B7;
+}
+
 /* -------------------------------------------------------------------------------------------------------------------------
 * phpBB ACP Toggles - A CSS class that makes it easy to display checkboxes as toggles.
    Source     : https://danklammer.com/articles/simple-css-toggle-switch/
    Reworked by: Kirk (adapted and optimized for phpBB), LukeWCS (optimized) */
 
-.toggle:before {
-	background-color: #ffffff;
+.toggle {
+	&,
+	&:hover,
+	&:focus {
+		background-color: #ccc;
+		color: #000;
+	}
+
+	&:before {
+		background-color: #fff;
+	}
+
+	&:checked {
+		background-color: #3b87ab;
+	}
 }
 
-.toggle,
-.toggle:hover,
-.toggle:focus {
-	background-color: #cccccc;
-/*	background-color: #c0c0c0;*/
-/*	background-color: #aa0000;*/
-	color: #000000;
+/* -------------------------------------------------------------------------------------------------------------------------
+* Icons
+*
+*/
+.acp-icon {
+	font-size: 1.5em;
+}
+/* stylelint-enable declaration-property-unit-whitelist */
+
+.acp-icon-load {
+	color: #62c046;
 }
 
-.toggle:checked {
-	background-color: #3b87ab;
-/*	background-color: #494999;*/
-/*	background-color: #3fa651;*/
+.acp-icon-delete {
+	color: #d74558;
 }

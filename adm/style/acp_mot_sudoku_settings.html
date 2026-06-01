@@ -1,7 +1,7 @@
 {#
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 #}
@@ -9,7 +9,6 @@
 {% include 'overall_header.html' %}
 {% INCLUDECSS '@mot_sudoku/mot_sudoku_acp.css' %}
 {% INCLUDEJS '@mot_sudoku/mot_sudoku_acp.js' %}
-{% set switch_type = TOGGLECTRL_TYPE ?? 'toggle' %}
 
 <h1>{{ lang('ACP_MOT_SUDOKU') ~ ' - ' ~ lang('ACP_MOT_SUDOKU_SETTINGS') }}</h1>
 
@@ -53,22 +52,22 @@
 		<legend>{{ lang('ACP_MOT_SUDOKU_GENERAL_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="mot_sudoku_enable">{{ lang('ACP_MOT_SUDOKU_ENABLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_ENABLE_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_enable', ACP_MOT_SUDOKU_ENABLE, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_enable', ACP_MOT_SUDOKU_ENABLE) }}</dd>
 		</dl>
 
 		<dl>
 			<dt><label for="mot_sudoku_version_checker">{{ lang('ACP_MOT_SUDOKU_VERSION_CHECKER_ON') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_VERSION_CHECKER_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_version_checker', ACP_MOT_SUDOKU_VERSION_CHECKER, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_version_checker', ACP_MOT_SUDOKU_VERSION_CHECKER) }}</dd>
 		</dl>
 
 		<dl>
 			<dt><label for="mot_sudoku_enable_rank">{{ lang('ACP_MOT_SUDOKU_ENABLE_RANK') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_ENABLE_RANK_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_enable_rank', ACP_MOT_SUDOKU_ENABLE_RANK, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_enable_rank', ACP_MOT_SUDOKU_ENABLE_RANK) }}</dd>
 		</dl>
 
 		<dl>
 			<dt><label for="mot_sudoku_enable_fame">{{ lang('ACP_MOT_SUDOKU_ENABLE_FAME') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_ENABLE_FAME_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_enable_fame', ACP_MOT_SUDOKU_ENABLE_FAME, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_enable_fame', ACP_MOT_SUDOKU_ENABLE_FAME) }}</dd>
 		</dl>
 
 		<div id="mot_sudoku_fame_limit_field" hidden="true">
@@ -80,7 +79,12 @@
 
 		<dl>
 			<dt><label for="mot_sudoku_title_enable">{{ lang('ACP_MOT_SUDOKU_PUZZLE_TITLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_PUZZLE_TITLE_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_title_enable', ACP_MOT_SUDOKU_TITLE_ENABLE, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_title_enable', ACP_MOT_SUDOKU_TITLE_ENABLE) }}</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="mot_sudoku_enable_game_save">{{ lang('ACP_MOT_SUDOKU_GAME_SAVE_TITLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_GAME_SAVE_TITLE_EXPL') }}</p></dt>
+			<dd>{{ _self.switch('mot_sudoku_enable_game_save', ACP_MOT_SUDOKU_ENABLE_GAME_SAVE) }}</dd>
 		</dl>
 
 		<dl>
@@ -144,7 +148,7 @@
 		<legend>{{ lang('ACP_MOT_SUDOKU_HELPER_SETTINGS') }}</legend>
 		<dl>
 			<dt><label for="mot_sudoku_helper_enable">{{ lang('ACP_MOT_SUDOKU_HELPER_ENABLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_HELPER_ENABLE_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_helper_enable', ACP_MOT_SUDOKU_HELPER_ENABLE, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_helper_enable', ACP_MOT_SUDOKU_HELPER_ENABLE) }}</dd>
 		</dl>
 
 		<dl>
@@ -159,7 +163,7 @@
 
 		<dl>
 			<dt><label for="mot_sudoku_helper_samurai_enable">{{ lang('ACP_MOT_SUDOKU_HELPER_SAMURAI_ENABLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_HELPER_ENABLE_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_helper_samurai_enable', ACP_MOT_SUDOKU_HELPER_SAMURAI_ENABLE, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_helper_samurai_enable', ACP_MOT_SUDOKU_HELPER_SAMURAI_ENABLE) }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="mot_sudoku_helper_samurai_cost">{{ lang('ACP_MOT_SUDOKU_HELPER_SAMURAI_COST') ~ lang('COLON') }}</label></dt>
@@ -173,7 +177,7 @@
 
 		<dl>
 			<dt><label for="mot_sudoku_helper_ninja_enable">{{ lang('ACP_MOT_SUDOKU_HELPER_NINJA_ENABLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_HELPER_ENABLE_EXPL') }}</p></dt>
-			<dd>{{ _self.switch('mot_sudoku_helper_ninja_enable', ACP_MOT_SUDOKU_HELPER_NINJA_ENABLE, switch_type) }}</dd>
+			<dd>{{ _self.switch('mot_sudoku_helper_ninja_enable', ACP_MOT_SUDOKU_HELPER_NINJA_ENABLE) }}</dd>
 		</dl>
 		<dl>
 			<dt><label for="mot_sudoku_helper_ninja_cost">{{ lang('ACP_MOT_SUDOKU_HELPER_NINJA_COST') ~ lang('COLON') }}</label></dt>
@@ -189,7 +193,7 @@
 			<legend>{{ lang('ACP_MOT_SUDOKU_UP_SETTINGS') }}</legend>
 			<dl>
 				<dt><label for="mot_sudoku_points_enable">{{ lang('ACP_MOT_SUDOKU_POINTS_ENABLE') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_POINTS_ENABLE_EXPL') }}</p></dt>
-				<dd>{{ _self.switch('mot_sudoku_points_enable', ACP_MOT_SUDOKU_POINTS_ENABLE, switch_type) }}</dd>
+				<dd>{{ _self.switch('mot_sudoku_points_enable', ACP_MOT_SUDOKU_POINTS_ENABLE) }}</dd>
 			</dl>
 			<div id="mot_sudoku_show_point_ratio" hidden="true">
 				<hr>
@@ -209,7 +213,7 @@
 				<legend>{{ lang('ACP_MOT_SUDOKU_REWARD_SETTINGS') }}</legend>
 				<dl>
 					<dt><label for="mot_sudoku_reward_enable">{{ lang('ACP_MOT_SUDOKU_REWARD_ON') ~ lang('COLON') }}</label><p>{{ lang('ACP_MOT_SUDOKU_REWARD_ON_EXPL') }}</p></dt>
-					<dd>{{ _self.switch('mot_sudoku_reward_enable', ACP_MOT_SUDOKU_REWARD_ENABLE, switch_type) }}</dd>
+					<dd>{{ _self.switch('mot_sudoku_reward_enable', ACP_MOT_SUDOKU_REWARD_ENABLE) }}</dd>
 				</dl>
 
 				<div id="mot_sudoku_show_reward_settings" hidden="true">
@@ -306,7 +310,7 @@
 							<label for="mot_sudoku_pm_enable">{{ lang('ACP_MOT_SUDOKU_PM_ENABLE') ~ lang('COLON') }}</label>
 							<p>{{ lang('ACP_MOT_SUDOKU_PM_ENABLE_EXPL') }}</p>
 						</dt>
-						<dd>{{ _self.switch('mot_sudoku_pm_enable', ACP_MOT_SUDOKU_PM_ENABLE, switch_type) }}</dd>
+						<dd>{{ _self.switch('mot_sudoku_pm_enable', ACP_MOT_SUDOKU_PM_ENABLE) }}</dd>
 					</dl>
 
 					<dl>
@@ -368,13 +372,15 @@
 
 {% include 'overall_footer.html' %}
 
-{% macro switch(name, checked = false, type = 'toggle') -%}
-	{% if type == 'toggle' || type == 'checkbox' -%}
+{% macro switch(name, checked = false, type = null) -%}
+	{% set type = type ?? (TOGGLECTRL_TYPE in ['toggle', 'checkbox', 'radio'] ? TOGGLECTRL_TYPE : 'toggle') -%}
+	{% if type in ['toggle', 'checkbox'] -%}
 		<input type="checkbox" class="{{ type }}" name="{{ name }}" value="1"{{ checked ? ' checked' }}>
 	{%- elseif type == 'radio' -%}
 		<label><input type="radio" class="radio" name="{{ name }}" value="1"{{ checked ? ' checked' }}> {{ lang('YES') }}</label>
 		<label><input type="radio" class="radio" name="{{ name }}" value="0"{{ !checked ? ' checked' }}> {{ lang('NO') }}</label>
 	{%- endif %}
+	{#- v1.3.1 #}
 {%- endmacro %}
 
 {% macro select(name, value, options) -%}

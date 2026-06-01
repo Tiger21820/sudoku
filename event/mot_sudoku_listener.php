@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -24,63 +24,11 @@ class mot_sudoku_listener implements EventSubscriberInterface
 		);
 	}
 
-	/** @var \phpbb\auth\auth */
-	protected $auth;
-
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/* @var \phpbb\controller\helper */
-	protected $helper;
-
-	/** @var \phpbb\language\language $language Language object */
-	protected $language;
-
-	/* @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \mot\sudoku\includes\mot_sudoku_functions */
-	protected $mot_sudoku_functions;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_fame */
-	protected $mot_sudoku_fame_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_fame_month */
-	protected $mot_sudoku_fame_month_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_fame_year */
-	protected $mot_sudoku_fame_year_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_games */
-	protected $mot_sudoku_games_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_stats */
-	protected $mot_sudoku_stats_table;
-
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\controller\helper $helper,
-								\phpbb\language\language $language, \phpbb\template\template $template, \phpbb\user $user, $mot_sudoku_functions, $mot_sudoku_fame_table,
-								$mot_sudoku_fame_month_table, $mot_sudoku_fame_year_table, $mot_sudoku_games_table, $mot_sudoku_stats_table)
+	public function __construct(protected \phpbb\auth\auth $auth, protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\controller\helper $helper,
+								protected \phpbb\language\language $language, protected \phpbb\template\template $template, protected \phpbb\user $user, protected \mot\sudoku\includes\mot_sudoku_functions $mot_sudoku_functions,
+								protected $sudoku_fame_table, protected $sudoku_fame_month_table, protected $sudoku_fame_year_table, protected $sudoku_games_table,
+								protected $sudoku_stats_table, protected $sudoku_saved_games_table)
 	{
-		$this->auth = $auth;
-		$this->config = $config;
-		$this->db = $db;
-		$this->helper = $helper;
-		$this->language = $language;
-		$this->template = $template;
-		$this->user = $user;
-		$this->mot_sudoku_functions = $mot_sudoku_functions;
-
-		$this->sudoku_fame_table = $mot_sudoku_fame_table;
-		$this->sudoku_fame_month_table = $mot_sudoku_fame_month_table;
-		$this->sudoku_fame_year_table = $mot_sudoku_fame_year_table;
-		$this->sudoku_games_table = $mot_sudoku_games_table;
-		$this->sudoku_stats_table = $mot_sudoku_stats_table;
 	}
 
 	/**
@@ -164,7 +112,9 @@ class mot_sudoku_listener implements EventSubscriberInterface
 	*/
 	public function delete_user_after($event)
 	{
-		$table_ary = [$this->sudoku_fame_table, $this->sudoku_fame_month_table, $this->sudoku_fame_year_table, $this->sudoku_games_table, $this->sudoku_stats_table];
+		$table_ary = [
+			$this->sudoku_fame_table, $this->sudoku_fame_month_table, $this->sudoku_fame_year_table, $this->sudoku_games_table, $this->sudoku_stats_table, $this->sudoku_saved_games_table
+		];
 		// get the user_id's stored in an indexed array
 		$user_id_ary = $event['user_ids'];
 		// if user(s) got deleted we need to delete them from all tables in the a.m. array

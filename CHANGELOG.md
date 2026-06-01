@@ -4,6 +4,32 @@ All changes to `Sudoku` will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.13.0] - 2026-05-28
+
+### Added
+-	A function to store a game for later re-use including a new ACP setting to enable (default) or disable this feature and a new tab to show the stored games to the user if there
+	are any with the options to load or delete stored games
+-	A function to the `ext.php` file to get the minimum and maximum versions and their respective conditions from the `require` section of the `composer.json` file in order to
+	prevent errors due to the duplicate entries in those two files
+
+### Changed
+-	Minimum PHP version to 8.1.33 and minimum phpBB version to 3.3.9
+-	Maximum PHP version to 8.5.x
+-	All constructor declarations to [Constructor Property Promotion](https://www.php.net/releases/8.0/de.php#constructor-property-promotion) (a new PHP feature starting with PHP 8.0)
+-	The ACP settings page to the updated toggle control `lukewcs/togglectrl 1.3.x`
+-	All css files to Nested CSS
+-	The boxes in the main window to be only loaded if the respective tab has been selected, this is supposed to minimize the data to be loaded
+-	Improved the look of the digit input position toggle selector and the table header in the Dark Vision style
+
+### Fixed
+-	A bug with the usage of phpBB's `common.php` language file which led to the output of the language key instead of the language variable as the month's name in the fame tab's
+	last months table
+-	A bug in `controller/mot_sudoku_main.php` functions `save_game_points()` (formerly `save_solved_game()`) and `save_to_fame()` which led to aborted games incrementing the
+	number of played games in MOT_SUDOKU_STATS_TABLE and MOT_SUDOKU_FAME_TABLE and adding a 0 to the respective solved games id array in MOT_SUDOKU_STATS_TABLE
+
+### Removed
+  
+  
 ## [0.12.1] - 2025-10-28
 
 ### Added
