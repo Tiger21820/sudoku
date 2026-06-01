@@ -44,6 +44,7 @@ services:
             - '%mot.sudoku.tables.mot_sudoku_ninja%'
             - '%mot.sudoku.tables.mot_sudoku_samurai%'
             - '%mot.sudoku.tables.mot_sudoku_stats%'
+            - '%mot.sudoku.tables.mot_sudoku_saved_games%'
 
     mot.sudoku.listener:
         class: mot\sudoku\event\mot_sudoku_listener
@@ -61,6 +62,7 @@ services:
             - '%mot.sudoku.tables.mot_sudoku_fame_year%'
             - '%mot.sudoku.tables.mot_sudoku_games%'
             - '%mot.sudoku.tables.mot_sudoku_stats%'
+            - '%mot.sudoku.tables.mot_sudoku_saved_games%'
         tags:
             - { name: event.listener }
 

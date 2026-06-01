@@ -1,8 +1,8 @@
 <?php
 /*
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -14,76 +14,11 @@ use phpbb\exception\version_check_exception;
 
 class mot_sudoku_acp
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/** @var \phpbb\language\language $language Language object */
-	protected $language;
-
-	/** @var \phpbb\log\log $log */
-	protected $log;
-
-	/** @var \phpbb\pagination  */
-	protected $pagination;
-
-	/** @var \phpbb\extension\manager */
-	protected $phpbb_extension_manager;
-
-	/** @var \phpbb\request\request_interface */
-	protected $request;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var string phpBB root path */
-	protected $root_path;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_classic */
-	protected $mot_sudoku_classic_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_gamepacks */
-	protected $mot_sudoku_gamepacks_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_ninja */
-	protected $mot_sudoku_ninja_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_samurai */
-	protected $mot_sudoku_samurai_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_stats */
-	protected $mot_sudoku_stats_table;
-
-	/**
-	 * {@inheritdoc
-	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, \phpbb\log\log $log,
-								\phpbb\pagination $pagination, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\request\request_interface $request,
-								\phpbb\template\template $template, \phpbb\user $user, $root_path, $mot_sudoku_classic_table, $mot_sudoku_gamepacks_table,
-								$mot_sudoku_ninja_table, $mot_sudoku_samurai_table, $mot_sudoku_stats_table)
+	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\language\language $language, protected \phpbb\log\log $log,
+								protected \phpbb\pagination $pagination, protected \phpbb\extension\manager $phpbb_extension_manager, protected \phpbb\request\request_interface $request,
+								protected \phpbb\template\template $template, protected \phpbb\user $user, protected $root_path, protected $classic_sudoku_table, protected $sudoku_gamepacks_table,
+								protected $ninja_sudoku_table, protected $samurai_sudoku_table, protected $sudoku_stats_table)
 	{
-		$this->config = $config;
-		$this->db = $db;
-		$this->language = $language;
-		$this->log = $log;
-		$this->pagination = $pagination;
-		$this->phpbb_extension_manager = $phpbb_extension_manager;
-		$this->request = $request;
-		$this->template = $template;
-		$this->user = $user;
-		$this->root_path = $root_path;
-
-		$this->classic_sudoku_table = $mot_sudoku_classic_table;
-		$this->sudoku_gamepacks_table = $mot_sudoku_gamepacks_table;
-		$this->ninja_sudoku_table = $mot_sudoku_ninja_table;
-		$this->samurai_sudoku_table = $mot_sudoku_samurai_table;
-		$this->sudoku_stats_table = $mot_sudoku_stats_table;
-
 		$this->md_manager = $this->phpbb_extension_manager->create_extension_metadata_manager('mot/sudoku');
 		$this->mot_sudoku_version = $this->md_manager->get_metadata('version');
 	}
@@ -111,6 +46,7 @@ class mot_sudoku_acp
 				$this->config->set('mot_sudoku_enable_fame', $this->request->variable('mot_sudoku_enable_fame', 0));
 				$this->config->set('mot_sudoku_fame_limit', $this->request->variable('mot_sudoku_fame_limit', 0));
 				$this->config->set('mot_sudoku_title_enable', $this->request->variable('mot_sudoku_title_enable', 0));
+				$this->config->set('mot_sudoku_enable_game_save', $this->request->variable('mot_sudoku_enable_game_save', 0));
 				$this->config->set('mot_sudoku_rows_per_page', $this->request->variable('mot_sudoku_rows_per_page', 0));
 				$this->config->set('mot_sudoku_cell_points', $this->request->variable('mot_sudoku_cell_points', 5));
 				$this->config->set('mot_sudoku_cell_cost', $this->request->variable('mot_sudoku_cell_cost', 15));
@@ -208,6 +144,7 @@ class mot_sudoku_acp
 			'ACP_MOT_SUDOKU_ENABLE_RANK'				=> $this->config['mot_sudoku_enable_rank'],
 			'ACP_MOT_SUDOKU_ENABLE_FAME'				=> $this->config['mot_sudoku_enable_fame'],
 			'ACP_MOT_SUDOKU_FAME_LIMIT'					=> $this->config['mot_sudoku_fame_limit'],
+			'ACP_MOT_SUDOKU_ENABLE_GAME_SAVE'			=> $this->config['mot_sudoku_enable_game_save'],
 			'ACP_MOT_SUDOKU_TITLE_ENABLE'				=> $this->config['mot_sudoku_title_enable'],
 			'ACP_MOT_SUDOKU_ROWS_PER_PAGE'				=> $this->config['mot_sudoku_rows_per_page'],
 			'ACP_MOT_SUDOKU_CELL_POINTS'				=> $this->config['mot_sudoku_cell_points'],
@@ -632,9 +569,6 @@ class mot_sudoku_acp
 
 	/**
 	* Delete all game data from the database
-	*
-	* @param	none
-	* @return	none
 	*/
 	private function reset_game()
 	{

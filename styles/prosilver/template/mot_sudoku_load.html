@@ -1,0 +1,66 @@
+{#
+*
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+#}
+
+<p>
+	<br>
+	{{ lang('MOT_SUDOKU_LOAD_TAB_EXPL') }}
+	<br><br>
+	{% if MOT_SUDOKU_ABORT_COST %}
+		{{ lang('MOT_SUDOKU_ABORT_PENALTY', MOT_SUDOKU_ABORT_COST) }}
+		<br><br>
+	{% endif %}
+</p>
+
+{% if pagination %}
+	<div class="pagination">
+		{% include 'pagination.html' %}
+	</div>
+	<div><p>&nbsp;</p></div>
+{% endif %}
+
+<table class="table1 zebra-list">
+	<tbody>
+		<tr>
+			<th style="text-align: center; width: 25%;">{{ lang('MOT_SUDOKU_PUZZLE_NAME') }}</th>
+			<th style="text-align: center;">{{ lang('MOT_SUDOKU_PUZZLE_TYPE') }}</th>
+			<th style="text-align: center;">{{ lang('MOT_SUDOKU_POINTS') }}</th>
+			<th style="text-align: center; width: 10%;">{{ lang('OPTIONS') }}</th>
+		</tr>
+		{% for ranking in MOT_SUDOKU_GAMES_TO_LOAD %}
+			<tr>
+				<td style="text-align: center;">{{ ranking.game_name }}</td>
+				<td style="text-align: center;">
+					{% if ranking.game_type == 'c' %}
+						{{ lang('MOT_SUDOKU_TAB_CLASSIC') }}
+					{% elseif ranking.game_type == 's' %}
+						{{ lang('MOT_SUDOKU_TAB_SAMURAI') }}
+					{% elseif ranking.game_type == 'n' %}
+						{{ lang('MOT_SUDOKU_TAB_NINJA') }}
+					{% endif %}
+				</td>
+				<td style="text-align: center;">{{ ranking.points }}</td>
+				<td style="text-align: center;">
+					<a href="{{ MOT_SUDOKU_LOAD_TAB ~ '&amp;action=load&amp;id=' ~ ranking.item_id }}">{{ ICON_LOAD }}</a>
+					<a href="{{ MOT_SUDOKU_LOAD_TAB ~ '&amp;action=delete&amp;id=' ~ ranking.item_id }}">{{ ICON_DELETE }}</a>
+				</td>
+			</tr>
+		{% else %}
+		<tr>
+			<td colspan="5" style="text-align: center;">{{ lang('MOT_SUDOKU_NO_ENTRIES') }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% if pagination %}
+	<div>&nbsp;</div>
+	<div class="pagination">
+		{% include 'pagination.html' %}
+	</div>
+	<div><p>&nbsp;</p></div>
+{% endif %}

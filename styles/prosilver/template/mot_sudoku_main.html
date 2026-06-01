@@ -1,7 +1,7 @@
 {#
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 #}
@@ -24,6 +24,7 @@
 		motSudoku.ajaxBuyDigit = "{{ MOT_SUDOKU_AJAX_BUY|e('js') }}";
 		motSudoku.ajaxEnableHelper = "{{ MOT_SUDOKU_AJAX_HELPER|e('js') }}";
 		motSudoku.ajaxGameQuit = "{{ MOT_SUDOKU_AJAX_QUIT|e('js') }}";
+		motSudoku.ajaxGameSave = "{{ MOT_SUDOKU_AJAX_SAVE|e('js') }}";
 		motSudoku.ajaxModalPos = "{{ MOT_SUDOKU_AJAX_MODAL|e('js') }}";
 		motSudoku.ajaxSelectLevel = "{{ MOT_SUDOKU_AJAX_LEVEL|e('js') }}";
 
@@ -39,9 +40,11 @@
 
 		motSudoku.notesTitle = "{{ lang('MOT_SUDOKU_NOTE_TITLE')|e('js') }}";
 		motSudoku.notesQuit = "{{ lang('MOT_SUDOKU_NOTES_QUIT')|e('js') }}";
+		motSudoku.notesSave = "{{ lang('MOT_SUDOKU_NOTES_SAVE')|e('js') }}";
 		motSudoku.notesPenalty = "{{ lang('MOT_SUDOKU_QUIT_PENALTY', MOT_SUDOKU_ABORT_COST)|e('js') }}";
 
-		motSudoku.confirmQuitMsg = "{{ _self.confirm()|e('js') }}";
+		motSudoku.confirmQuitMsg = "{{ _self.confirm(lang('MOT_SUDOKU_QUIT_MSG_TEXT'))|e('js') }}";
+		motSudoku.confirmSaveMsg = "{{ _self.confirm(lang('MOT_SUDOKU_SAVE_MSG_TEXT'))|e('js') }}";
 
 		motSudoku.errorErr = "{{ lang('MOT_SUDOKU_ERROR_TITLE')|e('js') }}";
 		motSudoku.errorReset = "{{ lang('MOT_SUDOKU_ERROR_RESET')|e('js') }}";
@@ -49,6 +52,7 @@
 		motSudoku.errorBuyLastDigit = "{{ lang('MOT_SUDOKU_BUY_LAST_DIGIT')|e('js') }}";
 		motSudoku.errorHelper = "{{ lang('MOT_SUDOKU_ERROR_HELPER')|e('js') }}";
 		motSudoku.errorQuit = "{{ lang('MOT_SUDOKU_ERROR_QUIT')|e('js') }}";
+		motSudoku.errorSave = "{{ lang('MOT_SUDOKU_ERROR_SAVE')|e('js') }}";
 		motSudoku.errorLevel = "{{ lang('MOT_SUDOKU_ERROR_LEVEL')|e('js') }}";
 		motSudoku.errorSolution = "{{ lang('MOT_SUDOKU_INCORRECT_END')|e('js') }}";
 
@@ -81,6 +85,10 @@
 			<div class="panel bg1">
 				<div id="tabs" class="tabs">
 					<ul>
+						{% if MOT_SUDOKU_ENABLE_LOAD %}
+							<li id="mot_sudoku_tab_load" class="tab"><a href="{{ MOT_SUDOKU_LOAD_TAB }}">{{ lang('MOT_SUDOKU_TAB_LOAD') }}</a></li>
+						{% endif %}
+
 						<li id="mot_sudoku_tab_classic" class="tab"><a href="{{ MOT_SUDOKU_CLASSIC_TAB }}">{{ lang('MOT_SUDOKU_TAB_CLASSIC') }}</a></li>
 
 						<li id="mot_sudoku_tab_samurai" class="tab"><a href="{{ MOT_SUDOKU_SAMURAI_TAB }}">{{ lang('MOT_SUDOKU_TAB_SAMURAI') }}</a></li>
@@ -98,25 +106,41 @@
 				</div>
 
 				<div class="panel bg3">
-					<div id="mot_sudoku_box_classic" class="inner" hidden="true">
-						{% include 'mot_sudoku_classic.html' %}
-					</div>
+					{% if MOT_SUDOKU_SELECTED_TAB == 'load' %}
+						<div id="mot_sudoku_box_load" class="inner" hidden="true">
+							{% include 'mot_sudoku_load.html' %}
+						</div>
+					{% endif %}
 
-					<div id="mot_sudoku_box_samurai" class="inner" hidden="true">
-						{% include 'mot_sudoku_samurai.html' %}
-					</div>
+					{% if MOT_SUDOKU_SELECTED_TAB == 'classic' %}
+						<div id="mot_sudoku_box_classic" class="inner" hidden="true">
+							{% include 'mot_sudoku_classic.html' %}
+						</div>
+					{% endif %}
 
-					<div id="mot_sudoku_box_ninja" class="inner" hidden="true">
-						{% include 'mot_sudoku_ninja.html' %}
-					</div>
+					{% if MOT_SUDOKU_SELECTED_TAB == 'samurai' %}
+						<div id="mot_sudoku_box_samurai" class="inner" hidden="true">
+							{% include 'mot_sudoku_samurai.html' %}
+						</div>
+					{% endif %}
 
-					<div id="mot_sudoku_box_rank" class="inner" hidden="true">
-						{% include 'mot_sudoku_rank.html' %}
-					</div>
+					{% if MOT_SUDOKU_SELECTED_TAB == 'ninja' %}
+						<div id="mot_sudoku_box_ninja" class="inner" hidden="true">
+							{% include 'mot_sudoku_ninja.html' %}
+						</div>
+					{% endif %}
 
-					<div id="mot_sudoku_box_fame" class="inner" hidden="true">
-						{% include 'mot_sudoku_fame.html' %}
-					</div>
+					{% if MOT_SUDOKU_SELECTED_TAB == 'rank' %}
+						<div id="mot_sudoku_box_rank" class="inner" hidden="true">
+							{% include 'mot_sudoku_rank.html' %}
+						</div>
+					{% endif %}
+
+					{% if MOT_SUDOKU_SELECTED_TAB == 'fame' %}
+						<div id="mot_sudoku_box_fame" class="inner" hidden="true">
+							{% include 'mot_sudoku_fame.html' %}
+						</div>
+					{% endif %}
 				</div>
 
 				<div class="panel bg3">
@@ -130,9 +154,9 @@
 {% include 'overall_footer.html' %}
 {% INCLUDEJS '@mot_sudoku/mot_sudoku_main.js' %}
 
-{% macro confirm() -%}
+{% macro confirm(text) -%}
 	<h3 class="alert_title">{{ lang('MOT_SUDOKU_QUIT_MSG_TITlE') }}</h3>
-	<p class="alert_text">{{ lang('MOT_SUDOKU_QUIT_MSG_TEXT') }}</p>
+	<p class="alert_text">{{ text }}</p>
 	<p style="text-align: center;">
 		<input class="button" type="button" name="confirm" value="{{ lang('YES') }}">&nbsp;
 		<input class="button" type="button" name="cancel" value="{{ lang('NO') }}">

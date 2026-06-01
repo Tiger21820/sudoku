@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.1
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,49 +11,10 @@ namespace mot\sudoku\includes;
 
 class mot_sudoku_functions
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/** @var \phpbb\language\language $language */
-	protected $language;
-
-	/** @var ContainerInterface */
-	protected $phpbb_container;
-
-	/** @var string phpBB root path */
-	protected $root_path;
-
-	/** @var string PHP extension */
-	protected $php_ext;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_fame */
-	protected $mot_sudoku_fame_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_fame_month */
-	protected $mot_sudoku_fame_month_table;
-
-	/** @var string mot.sudoku.tables.mot_sudoku_fame_year */
-	protected $mot_sudoku_fame_year_table;
-
-	/**
-	* Constructor
-	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, $phpbb_container, $root_path, $php_ext,
-								$mot_sudoku_fame_table, $mot_sudoku_fame_month_table, $mot_sudoku_fame_year_table)
+	public function __construct(protected \phpbb\config\config $config, protected \phpbb\db\driver\driver_interface $db, protected \phpbb\language\language $language,
+								protected $phpbb_container, protected $root_path, protected $php_ext, protected $sudoku_fame_table, protected $sudoku_fame_month_table,
+								protected $sudoku_fame_year_table)
 	{
-		$this->config = $config;
-		$this->db = $db;
-		$this->language = $language;
-		$this->phpbb_container = $phpbb_container;
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
-		$this->sudoku_fame_table = $mot_sudoku_fame_table;
-		$this->sudoku_fame_month_table = $mot_sudoku_fame_month_table;
-		$this->sudoku_fame_year_table = $mot_sudoku_fame_year_table;
-
 		$this->type_arr = ['c', 's', 'n'];
 	}
 

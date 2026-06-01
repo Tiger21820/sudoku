@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2023 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2023 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -23,6 +23,7 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_TITLE'				=> 'Sudoku',
 
 	// Tabs
+	'MOT_SUDOKU_TAB_LOAD'			=> 'Spiel laden',
 	'MOT_SUDOKU_TAB_CLASSIC'		=> 'Klassik-Sudoku',
 	'MOT_SUDOKU_TAB_SAMURAI'		=> 'Samurai-Sudoku',
 	'MOT_SUDOKU_TAB_NINJA'			=> 'Ninja-Sudoku',
@@ -42,6 +43,30 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_INCORRECT_END'		=> 'Deine Lösung war leider nicht ganz korrekt. Die falsch eingetragenen Ziffern wurden entfernt und die Minuspunkte dafür von deiner Punktzahl
 										abgezogen.<br>
 										Du hast jetzt Gelegenheit, die korrekten Ziffern einzutragen.',
+
+	// Load game
+	'MOT_SUDOKU_LOAD_TAB_EXPL'		=> 'In der nachstehenden Tabelle werden alle von dir gespeicherten Spiele angezeigt. Durch das Anklicken der beiden Icons in der Spalte
+										`Optionen` kannst du das jeweilige Spiel entweder zum Weiterspielen laden oder aus der Liste deiner gespeicherten Spiele löschen.<br>
+										<strong>ACHTUNG:</strong> Wenn du ein Spiel lädst und im jeweiligen Sudoku-Typ bereits ein aktives Spiel hast, wird dieses abgebrochen.
+										Werden für das Abbrechen eines Spieles Strafpunkte angerechnet, werden deinem Punktekonto bei dieser Aktion die entsprechenden Punkte
+										abgezogen! Gleiches gilt für ein gelöschtes Spiel, dies wird beim Löschen als abgebrochen betrachtet und dein Punktekonto mit den
+										entsprechenden Strafpunkten belastet!',
+	'MOT_SUDOKU_ABORT_PENALTY'		=> [
+		1	=> 'Für das Abbrechen eines Spieles wird aktuell <strong>%1$d Punkt</strong> von deinem Punktekonto abgezogen!',
+		2	=> 'Für das Abbrechen eines Spieles werden aktuell <strong>%1$d Punkte</strong> von deinem Punktekonto abgezogen!',
+	],
+	'MOT_SUDOKU_PUZZLE_NAME'		=> 'Spiele-Name',
+	'MOT_SUDOKU_PUZZLE_TYPE'		=> 'Sudoku-Typ',
+	'MOT_SUDOKU_POINTS'				=> 'Punkte',
+	'MOT_SUDOKU_PUZZLE_LOAD'		=> 'Spiel laden',
+	'MOT_SUDOKU_PUZZLE_DELETE'		=> 'Spiel löschen',
+	'MOT_SUDOKU_DELETE_CONFIRM'		=> 'Willst du das Rätsel mit dem Namen <strong>%1$s</strong> wirklich aus deinen gespeicherten Spielen löschen?',
+	'MOT_SUDOKU_DELETED_GAME'		=> 'Das Rätsel mit dem Namen <strong>%1$s</strong> wurde aus deinen gespeicherten Spielen gelöscht.',
+	'MOT_SUDOKU_DELETED_POINTS'		=> '<br>Dafür wurden dir <strong>%1$d Punkte</strong> von deinem Punktekonto abgezogen.',
+	'MOT_SUDOKU_DELETED_UPPOINTS'	=> '<br>Außerdem wurden dir <strong>%1$s Punkte</strong> von deinem UP-Konto abgezogen.',
+	'MOT_SUDOKU_LOAD_CONFIRM'		=> 'Willst du das Rätel mit dem Namen <strong>%1$s</strong> wirklich zum Weiterspielen laden?',
+	'MOT_SUDOKU_LOAD_ACTIVE_CONF'	=> '<br>Beachte bitte, dass du ein aktives Spiel hast und dieses durch diese Aktion abgebrochen wird!',
+	'MOT_SUDOKU_LOAD_PENALTY'		=> '<br>Außerdem werden dir dafür <strong>%1$d Punkte</strong> von deinem Punktekonto abgezogen. Wenn aktiviert, wird auch dein UP-Konto mit Strafpunkten belastet.',
 
 	// Classic Sudoku
 	'MOT_SUDOKU_NO_CLASSIC_PUZZLES'	=> 'Es existieren derzeit keine Klassik-Sudoku-Rätsel, der Administrator muss erst ein Spielepaket importieren!',
@@ -86,6 +111,8 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_GAME_QUIT'			=> 'Spiel aufgeben',
 	'MOT_SUDOKU_GAME_QUIT_TITLE'	=> 'Wenn du nicht weiterkommst, kannst du hier aufgeben. Das Rätsel wird dann aus deinen gespeicherten Spielen gelöscht und du kannst ein neues Spiel beginnen.',
 	'MOT_SUDOKU_QUIT_PENALTY_TITLE'	=> 'Die Aufgabe des Spieles kostet einmalig %1$d Minuspunkte.',
+	'MOT_SUDOKU_STORE_GAME'			=> 'Spiel speichern',
+	'MOT_SUDOKU_STORE_GAME_TITLE'	=> 'Wenn du nicht weiterkommst, kannst du dieses Spiel für eine spätere Wiederaufnahme speichern und ein neues Spiel beginnen.',
 	'MOT_SUDOKU_MODAL_ABOVE'		=> 'Zifferneingabe oberhalb Spielfeld',
 	'MOT_SUDOKU_MODAL_OVER'			=> 'Zifferneingabe über Mauszeiger',
 
@@ -137,6 +164,18 @@ $lang = array_merge($lang, [
 		1	=> 'Letztes Jahr',
 		2	=> 'Letzte %1$d Jahre',
 	],
+	'JANUARY'						=> 'Januar',
+	'FEBRUARY'						=> 'Februar',
+	'MARCH'							=> 'März',
+	'APRIL'							=> 'April',
+	'MAY'							=> 'Mai',
+	'JUNE'							=> 'Juni',
+	'JULY'							=> 'Juli',
+	'AUGUST'						=> 'August',
+	'SEPTEMBER'						=> 'September',
+	'OCTOBER'						=> 'Oktober',
+	'NOVEMBER'						=> 'November',
+	'DECEMBER'						=> 'Dezember',
 
 	// Online list
 	'MOT_SUDOKU_TOTAL_PLAYERS'		=> [
@@ -147,10 +186,12 @@ $lang = array_merge($lang, [
 
 	// Abort messages
 	'MOT_SUDOKU_NOTE_TITLE'			=> 'Hinweis',
-	'MOT_SUDOKU_NOTES_QUIT'			=> 'Das aufgegebene Spiel wurde aus der Tabelle der gespeicherten Spiele gelöscht, du wirst gleich zu einem neuen Spiel weitergeleitet.',
+	'MOT_SUDOKU_NOTES_QUIT'			=> 'Das aufgegebene Spiel wurde aus der Tabelle der aktiven Spiele gelöscht, du wirst gleich zu einem neuen Spiel weitergeleitet.',
+	'MOT_SUDOKU_NOTES_SAVE'			=> 'Das Spiel wurde in der Datenbank gespeichert und aus der Tabelle der aktiven Spiele gelöscht, du wirst gleich zu einem neuen Spiel weitergeleitet.',
 	'MOT_SUDOKU_QUIT_MSG_TITlE'		=> 'Bestätigen',
 	'MOT_SUDOKU_QUIT_MSG_TEXT'		=> 'Willst du dieses Spiel wirklich aufgeben?',
 	'MOT_SUDOKU_QUIT_PENALTY'		=> 'Dein Punktekonto wurde mit %1$d Minuspunkten belastet!',
+	'MOT_SUDOKU_SAVE_MSG_TEXT'		=> 'Willst du dieses Spiel wirklich speichern?',
 
 	// Errors
 	'MOT_SUDOKU_ERROR_TITLE'		=> 'Fehler!',
@@ -159,6 +200,7 @@ $lang = array_merge($lang, [
 	'MOT_SUDOKU_BUY_LAST_DIGIT'		=> 'Du willst nicht wirklich die letzte fehlende Ziffer kaufen, oder?',
 	'MOT_SUDOKU_ERROR_HELPER'		=> 'Willst du wirklich schon den Helfer benutzen, bevor du es selbst versucht hast?',
 	'MOT_SUDOKU_ERROR_QUIT'			=> 'Willst du wirklich schon aufgeben, bevor du die erste Ziffer eingegeben hast?',
+	'MOT_SUDOKU_ERROR_SAVE'			=> 'Willst du das Spiel wirklich schon speichern, bevor du die erste Ziffer eingegeben hast?',
 	'MOT_SUDOKU_ERROR_LEVEL'		=> 'Du musst erst einen neuen Level auswählen!',
 
 	// PM texts

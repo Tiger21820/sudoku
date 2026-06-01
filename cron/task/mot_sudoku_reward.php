@@ -1,8 +1,8 @@
 <?php
 /**
 *
-* @package MoT Sudoku v0.12.0
-* @copyright (c) 2024 - 2025 Mike-on-Tour
+* @package MoT Sudoku v0.13.0
+* @copyright (c) 2024 - 2026 Mike-on-Tour
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -11,23 +11,8 @@ namespace mot\sudoku\cron\task;
 
 class mot_sudoku_reward extends \phpbb\cron\task\base
 {
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	/** @var \phpbb\extension\manager */
-	protected $phpbb_extension_manager;
-
-	/** @var \mot\sudoku\includes\mot_sudoku_functions */
-	protected $mot_sudoku_functions;
-
-	/**
-	 * {@inheritdoc
-	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\extension\manager $phpbb_extension_manager, $mot_sudoku_functions)
+	public function __construct(protected \phpbb\config\config $config, protected \phpbb\extension\manager $phpbb_extension_manager, protected \mot\sudoku\includes\mot_sudoku_functions $mot_sudoku_functions)
 	{
-		$this->config = $config;
-		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
-		$this->mot_sudoku_functions = $mot_sudoku_functions;
 	}
 
 	/**
